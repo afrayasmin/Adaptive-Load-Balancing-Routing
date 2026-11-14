@@ -1,71 +1,27 @@
-# Adaptive Load-Balancing Routing (ALBR) for Road Networks
-
 ## Problem Statement
 
-A road network is modeled as a weighted graph \(G=(V,E,w)\) where intersections are vertices and bidirectional roads are edges. At each time step \(t\), transport requests \(r_i=(n_i,s_i,d_i)\) arrive with a vehicle count, source, and destination. ALBR distributes vehicles across valid paths from \(s_i\) to \(d_i\) to balance traffic and minimize distance.
+Consider a large road network represented by a connected, undirected, weighted graph `G = (V, E, w)`, where vertices represent intersections, edges represent bidirectional roads, and edge weights represent distances. Assume that all intersections and vehicles are of the same type.
 
-## Key Objectives
+At each discrete time step `t`, a set of transportation requests arrives. Each request `r_i = (n_i, s_i, d_i)` specifies the number of vehicles, source intersection, and destination intersection.
 
-1. Generate weighted road networks and time-step requests of varying sizes.
-2. Implement an algorithm balancing travel distance and network traffic.
-3. Track assigned paths, vehicle counts, and road-wise loads per time step.
-4. Evaluate performance using max road load, average load, load variance, and total distance.
-5. Benchmark against shortest-path and greedy load-balancing routing.
-6. Analyze complexity, scalability, runtime, and the trade-off between balancing and distance.
+The objective is to distribute the vehicles of each request among one or more valid paths from `s_i` to `d_i` such that traffic load is balanced across the road network while minimizing total travel distance.
 
 ## Proposed Approach: ALBR
 
-ALBR dynamically splits traffic across multiple candidate paths using a cost function that factors in distance and current congestion:
+**Adaptive Load-Balancing Routing (ALBR)** dynamically distributes vehicles across candidate paths by considering both road distance and current traffic load.
 
-\[c_e = w(e) + \lambda(2L_e + 1)\]
+The algorithm uses the following dynamic edge cost:
 
-Where \(w(e)\) is road distance, \(L_e\) is current vehicle count, and \(\lambda\) is the load-balancing parameter. It generates up to three candidate paths via repeated Dijkstra searches, updating edge loads and costs incrementally after each vehicle assignment.
+$$
+c_e = w(e) + \\lambda(2L_e + 1)
+$$
 
-## Evaluation Metrics & Comparisons
+Where:
 
-Performance is measured via **Maximum Road Load**, **Average Road Load**, **Load Variance**, and **Total Travel Distance**, benchmarked against:
-1. **Shortest Path Routing (SPR):** Routes all vehicles through the shortest path.
-2. **Greedy Load-Balancing Routing (GLBR):** Chooses paths by average current load (using distance as a tie-breaker).
-3. **Adaptive Load-Balancing Routing (ALBR):** Dynamically updates path selection using real-time load data.
+- `w(e)` = Original distance of road `e`.
+- `L_e` = Current number of vehicles assigned to road `e`.
+- `λ` = Load-balancing parameter.
 
-## Project Structure
+The algorithm generates up to three candidate paths for each request using repeated Dijkstra-based searches. Vehicles are assigned individually, and road loads and candidate-path costs are updated after every assignment.
 
-```text
-Adaptive-Load-Balancing-Routing/
-│
-├── road_traffic_routing.cpp
-├── README.md
-├── .gitignore
-│
-└── output/
-    └── sample_output.txt
-```
-
-## Compilation and Execution
-
-Requirements: A C++ compiler (GCC or MinGW) and terminal.
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com
-   ```
-2. **Navigate to Directory:**
-   ```bash
-   cd Adaptive-Load-Balancing-Routing
-   ```
-3. **Compile Code:**
-   ```bash
-   g++ road_traffic_routing.cpp -o routing.exe
-   ```
-4. **Run and Save Output:**
-   ```powershell
-   .\routing.exe > output\sample_output.txt
-   Get-Content output\sample_output.txt
-   ```
-
-## Author
-
-**Afra Yasmin**  
-Department of Computer Science and Engineering  
-Khulna University of Engineering & Technology (KUET), Bangladesh  
-GitHub: https://github.com
+This allows multiple paths to be used for a single transportation request.
