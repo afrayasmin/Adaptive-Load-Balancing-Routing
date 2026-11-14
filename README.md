@@ -2,11 +2,11 @@
 
 ## Problem Statement
 
-Consider a large road network represented by a connected, undirected, weighted graph `G = (V, E, w)`, where vertices represent intersections, edges represent bidirectional roads, and edge weights represent distances. Assume that all intersections and vehicles are of the same type.
+Consider a large road network represented by a connected, undirected, weighted graph $G = (V, E, w)$, where vertices represent intersections, edges represent bidirectional roads, and edge weights represent distances. Assume that all intersections and vehicles are of the same type.
 
-At each discrete time step `t`, a set of transportation requests arrives. Each request is represented as `r<sub>i</sub> = (n<sub>i</sub>, s<sub>i</sub>, d<sub>i</sub>)`, specifying the number of vehicles, source intersection, and destination intersection.
+At each discrete time step $t$, a set of transportation requests arrives. Each request $r_i = (n_i, s_i, d_i)$ specifies the number of vehicles, source intersection, and destination intersection.
 
-The objective is to distribute the vehicles of each request among one or more valid paths from `s<sub>i</sub>` to `d<sub>i</sub>` such that traffic load is balanced across the road network while minimizing total travel distance.
+The objective is to distribute the vehicles of each request among one or more valid paths from $s_i$ to $d_i$ such that traffic load is balanced across the road network while minimizing total travel distance.
 
 ## Objectives
 
@@ -29,9 +29,9 @@ $$
 
 Where:
 
-- `w(e)` = original distance of road `e`.
-- `L<sub>e</sub>` = current number of vehicles assigned to road `e`.
-- `&lambda;` = load-balancing parameter.
+- $w(e)$ = original distance of road $e$.
+- $L_e$ = current number of vehicles assigned to road $e$.
+- $\lambda$ = load-balancing parameter.
 
 The algorithm generates up to three candidate paths for each request using repeated Dijkstra-based searches. Vehicles are assigned individually, and road loads and candidate-path costs are updated after every assignment.
 
