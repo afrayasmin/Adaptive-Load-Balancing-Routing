@@ -23,9 +23,7 @@ The objective is to distribute the vehicles of each request among one or more va
 
 The algorithm uses a dynamic edge cost:
 
-\[
-c_e=w(e)+\lambda(2L_e+1)
-\]
+\[c_e = w(e) + \lambda(2L_e + 1)\]
 
 Where:
 
@@ -59,7 +57,7 @@ All algorithms are evaluated using the same generated road networks and transpor
 ## Problem Structure
 
 ```text
-Road-Traffic-Routing-Algorithm/
+Adaptive-Load-Balancing-Routing/
 │
 ├── road_traffic_routing.cpp
 ├── README.md
@@ -79,13 +77,13 @@ Road-Traffic-Routing-Algorithm/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/afrayasmin/Road-Traffic-Routing-Algorithm.git
+git clone https://github.com
 ```
 
-### 2. Navigate to the Problem Directory
+### 2. Navigate to the Project Directory
 
 ```bash
-cd Road-Traffic-Routing-Algorithm
+cd Adaptive-Load-Balancing-Routing
 ```
 
 ### 3. Compile the Source Code
